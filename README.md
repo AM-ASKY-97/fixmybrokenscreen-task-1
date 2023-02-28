@@ -1,6 +1,6 @@
 <h1 align="center">Fixmybrokenscreen Task 1 (Movie List)</h1>
 
-### Project Description
+### Project Description:
 
 <p>This project is a responsive web page that displays a list of movies using data from a JSON file. The web page is designed to match the layout of the attached movies.psd file, with colors, fonts, page widths, and page paddings following the design. The page uses React on the front-end to render the UI components and Laravel on the back-end to retrieve and serve the movie data from a MySQL database. Bootstrap is used as the CSS framework to facilitate responsive design and layout.</p>
 
