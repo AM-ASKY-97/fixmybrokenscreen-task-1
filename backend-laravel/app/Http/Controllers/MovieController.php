@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class MovieController extends Controller
@@ -13,12 +14,8 @@ class MovieController extends Controller
      */
     public function index()
     {
-        $data = Movie::all();
-
-        return response()->json([
-            'status' => 200,
-            'movie' => $data
-        ]);
+        $data = DB::table('movies')->paginate(10);
+        return response()->json($data);
     }
 
     /**

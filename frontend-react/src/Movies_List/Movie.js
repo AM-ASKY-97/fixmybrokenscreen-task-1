@@ -4,23 +4,37 @@ import Movie_list from './Movie_list';
 
 const Movie = () => {
 
-    const [value, setValue] = useState([]);
+    const [data, setData] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
     const [loding, setLoding] = useState([true]);
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/api').then(res => {
-            if (res.data.status === 200) {
-                setValue(res.data.movie);
-                setLoding(false);
-            }
-        })
-    }, []);
+        fetchData();
+    }, [currentPage]);
+
+    const fetchData = async () => {
+        const response = await axios.get(`http://127.0.0.1:8000/api?page=${currentPage}`);
+        setData(response.data.data);
+        setTotalPages(response.data.last_page);
+        setLoding(false);
+    };
+    
+
+    const handlePreviousPage = () => {
+        setCurrentPage(currentPage - 1);
+    };
+
+    const handleNextPage = () => {
+        setCurrentPage(currentPage + 1);
+    };
+
 
     return (
         <div className='container my-4'>
-            <h1 className='text-uppercase text-Secondary'>Top rated Movies</h1>
+            <h1 className='text-uppercase text-secondary'>Top rated Movies</h1>
 
-            <hr/>
+            <hr />
 
             <div className='mt-3 row row-cols-2 row-cols-md-5 g-3'>
                 {loding
@@ -31,12 +45,23 @@ const Movie = () => {
                         </div>
                     </div>
                     :
-                    value.map((movie) => {
+                    data.map((movie) => {
                         return (
                             <Movie_list data={movie} />
                         )
                     })
                 }
+            </div>
+
+            <div className='float-end my-5'>
+                <div>
+                    Page {currentPage} of {totalPages}
+                </div>
+
+                <div className="btn-group" role="group" aria-label="Basic outlined example">
+                    <button onClick={handlePreviousPage} disabled={currentPage === 1} type="button" className="btn btn-outline-primary">Previous Page</button>
+                    <button onClick={handleNextPage} disabled={currentPage === totalPages} type="button" className="btn btn-outline-primary">Next Page</button>
+                </div>
             </div>
         </div>
     )
