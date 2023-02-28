@@ -30,6 +30,7 @@
 
 <p>Overall, this project was a great opportunity to improve my full-stack web development skills and learn new technologies.</p>
 
+
 <h2 align="center">Screenshot of UI</h2>
 
 <h3>Desktop View</h3>
